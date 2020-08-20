@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.project.modules.zentao.mapper.ZtWorkhistoryMapper">
+    <select id="findEntityAllByIds" parameterType="String" resultType="org.project.modules.zentao.entity.ZtWorkhistory">
+        select * from zt_workhistory t where t.createDate between current_date()-7 and sysdate() and id in (#{ids,jdbcType=VARCHAR})
+    </select>
+
+    <select id="findEntityAll" parameterType="String" resultType="org.project.modules.zentao.entity.ZtWorkhistory">
+        select * from zt_workhistory t where t.createDate between current_date()-7 and sysdate()
+    </select>
+
+    <select id="findByDate" parameterType="String" resultType="org.project.modules.zentao.entity.ZtWorkhistory">
+        select * from zt_workhistory t where t.createdate <![CDATA[ >= ]]>  #{date}
+        and t.createdate <![CDATA[ < ]]>  #{yesDate}
+    </select>
+
+    <select id="deleteByUserNameAndcreateDate" parameterType="String" resultType="org.project.modules.zentao.entity.ZtWorkhistory">
+        delete from zt_workhistory t where t.`name` = #{name} and t.createDate <![CDATA[ >= ]]> #{date} and  createdate <![CDATA[ < ]]> #{endTime}
+    </select>
+</mapper>

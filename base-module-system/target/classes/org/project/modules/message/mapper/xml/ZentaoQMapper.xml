@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.project.modules.message.mapper.ZantaoQMapper">
+
+    <select id="findEntityAll" resultType="org.project.modules.message.entity.ZtUserQuickQueryEntity">
+		select * from zt_userquickquery
+    </select>
+
+    <insert id="insertZtUserQuickQueryEntity" parameterType="org.project.modules.message.entity.ZtUserQuickQueryEntity">
+		INSERT INTO zt_userquickquery
+		(
+        name，
+        memo，
+        count，
+        createDate，
+        updateDate，
+        modifiedMan，
+        modifiedDate
+		) VALUES (
+		#{name,jdbcType=VARCHAR},
+		#{memo,jdbcType=VARCHAR},
+		#{count,jdbcType=INTEGER},
+		#{createDate,jdbcType=DATE},
+		#{updateDate,jdbcType=DATE},
+		#{modifiedMan,jdbcType=VARCHAR},
+		#{modifiedDate,jdbcType=DATE}
+		)
+	</insert>
+</mapper>

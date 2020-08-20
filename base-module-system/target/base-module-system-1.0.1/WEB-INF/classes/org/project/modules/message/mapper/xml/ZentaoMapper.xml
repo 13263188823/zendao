@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.project.modules.message.mapper.ZantaoMapper">
+
+    <select id="findEntityAll" parameterType="String" resultType="org.project.modules.message.entity.ZtWorkHistoryEntity">
+        select * from zt_workhistory t where t.createDate between current_date()-7 and sysdate()
+    </select>
+
+    <select id="findEntityAllByIds" parameterType="String" resultType="org.project.modules.zentao.entity.ZtWorkhistory">
+        select * from zt_workhistory t where t.createDate between current_date()-7 and sysdate() and id in (#{ids,jdbcType=VARCHAR})
+    </select>
+
+    <select id="findEntityAllCount" parameterType="String" resultType="org.project.modules.message.entity.ZtWorkHistoryEntity">
+    select count(t.name) as count ,t.name as countName ,(
+        select count(*) from zt_workhistory zt where zt.status in(4) and zt.createDate between current_date()-7 and sysdate()
+        and zt.name =t.name) as recordingCount from zt_workhistory t where t.createDate between current_date()-7 and sysdate() GROUP BY t.name
+    </select>
+
+    <insert id="insertZHkEntity" parameterType="org.project.modules.message.entity.ZtWorkHistoryEntity">
+		INSERT INTO zt_workhistory
+		(
+        name,
+        memo,
+        status,
+        createDate,
+        updateDate,
+        modifiedMan,
+        modifiedDate
+		) VALUES (
+		#{name,jdbcType=VARCHAR},
+		#{memo,jdbcType=VARCHAR},
+		#{status,jdbcType=INTEGER},
+		#{createDate,jdbcType=DATE},
+		#{updateDate,jdbcType=DATE},
+		#{modifiedMan,jdbcType=VARCHAR},
+		#{modifiedDate,jdbcType=DATE}
+		)
+	</insert>
+
+    <update id="updateEntity" parameterType="String">
+            UPDATE zt_workhistory SET status = 4 WHERE id in(#{ids,jdbcType=VARCHAR})
+    </update>
+
+    <update id="updateEntityByNameAndDate" parameterType="String">
+            UPDATE zt_workhistory SET status = 4 WHERE name = #{name,jdbcType=VARCHAR} and createDate = #{date,jdbcType=VARCHAR}
+    </update>
+</mapper>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.project.modules.message.mapper.ZantaoTaskestimateMapper">
+
+    <select id="findTaskestimateByUser" parameterType="org.project.modules.message.entity.ZtTaskestimateEntity" resultType="org.project.modules.message.entity.ZtTaskestimateEntity">
+        select * from zt_taskestimate where account = #{userName,jdbcType=VARCHAR}
+        and date <![CDATA[ >= ]]>#{beginTime,jdbcType=VARCHAR} and date <![CDATA[ < ]]>#{endTime,jdbcType=VARCHAR}
+     </select>
+
+</mapper>
